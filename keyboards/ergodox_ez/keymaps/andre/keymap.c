@@ -6,54 +6,57 @@
 #include "action_layer.h"
 
 #define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
+#define WIND 1 // windows layer
+#define SYMB 2 // symbols
+#define MDIA 3 // media keys
 
 #define MMEH_T(kc) MT((MOD_LGUI | MOD_LSFT | MOD_LALT), kc)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|  LGui  |
- * |--------+------+------+------+------+------| MMeh |           |Hyper |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
+// Keymap 0: Basic Mac layer
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_BSLS,        KC_1,           KC_2,   KC_3,   KC_4,   KC_5,   TG(SYMB),
-        KC_TAB,         KC_Q,           KC_W,   KC_E,   KC_R,   KC_T,   KC_ESCAPE,
-        KC_CAPSLOCK,    KC_A,           KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSFT,        CTL_T(KC_Z),    KC_X,   KC_C,   KC_V,   KC_B,   MMEH_T(KC_NO),
-        SFT_T(KC_GRAVE),F(0),     LALT(KC_I),  KC_LEFT, KC_RGHT,
-                                              KC_LGUI,  KC_HOME,
-                                                              KC_END,
-                                               KC_BSPC,KC_LALT,KC_DELETE,
+        KC_ESC,           KC_1,     KC_2,        KC_3,    KC_4,    KC_5,   TG(WIND),
+        KC_TAB,           KC_Q,     KC_W,        KC_E,    KC_R,    KC_T,   TG(SYMB),
+        LT(SYMB,KC_CAPS), KC_A,     KC_S,        KC_D,    KC_F,    KC_G,
+        KC_LSFT,          KC_Z,     KC_X,        KC_C,    KC_V,    KC_B,   MMEH_T(KC_NO),
+        KC_BSLS,          F(0),     LALT(KC_I),  KC_LEFT, KC_RGHT,
+                                                                      KC_LGUI,   KC_HOME,
+                                                                                  KC_END,
+                                                             KC_BSPC, KC_LALT, KC_DELETE,
         // right hand
-             KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_EQL,
-                          KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),KC_QUOT,
-             ALL_T(KC_NO),KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
-                                  KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
-             KC_PGUP,        KC_LGUI,
-             KC_PGDN,
-             KC_RCTRL,KC_ENT, KC_SPC
+        TG(WIND),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+        TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_EQL,
+                     KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),KC_QUOT,
+        ALL_T(KC_NO),KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
+                             KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
+        KC_PGUP,        KC_LGUI,
+        KC_PGDN,
+        KC_RCTRL,KC_ENT, KC_SPC
+    ),
+// Keymap 0.1: Basic Windows layer
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[WIND] = LAYOUT_ergodox(  // layer 1 : windows
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                           KC_LCTRL, KC_TRNS,
+                                                     KC_TRNS,
+                                  KC_TRNS, KC_TRNS,  KC_TRNS,
+    // right hand
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_RCTRL,
+       KC_TRNS,
+       KC_RGUI, KC_TRNS, KC_TRNS
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -133,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,
-                          KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
+                          KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
@@ -141,8 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_FUNCTION(0),  // Calls action_function()
-    [1] = ACTION_LAYER_TAP_TOGGLE(MDIA)                // FN1 - Momentary Layer 1 (Symbols)
+    [0] = ACTION_FUNCTION(0), // Calls action_function()
+    [1] = ACTION_LAYER_TAP_TOGGLE(MDIA), // FN1 - Momentary Media Layer
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -165,29 +168,6 @@ void matrix_init_user(void) {
 
 };
 
-// Runs constantly in the background, in a loop.
-// void matrix_scan_user(void) {
-//
-//   uint8_t layer = biton32(layer_state);
-//
-//   ergodox_board_led_off();
-//   ergodox_right_led_1_off();
-//   ergodox_right_led_2_off();
-//   ergodox_right_led_3_off();
-//   switch (layer) {
-//     // TODO: Make this relevant to the ErgoDox EZ.
-//     case SYMB:
-//       ergodox_right_led_1_on();
-//       break;
-//     case MDIA:
-//       ergodox_right_led_2_on();
-//       break;
-//     default:
-//       // none
-//       break;
-//   }
-//
-// };
 uint32_t layer_state_set_user(uint32_t state) {
 
     uint8_t layer = biton32(state);
@@ -232,59 +212,59 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 };
 
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+void function0(keyrecord_t *record) {
   static uint8_t all_mods;
   static uint8_t alt_pressed;
   static uint8_t shift_pressed;
   static bool alt_flag;
+  // Handle the combined Grave/Mod keys
+  all_mods = get_mods();
+  alt_pressed = all_mods & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT));
+  shift_pressed = all_mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
 
-  switch (id) {
-    case 0:
-      /* Handle the combined Grave/Mod keys
-       */
-      all_mods = get_mods();
-      alt_pressed = all_mods & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT));
-      shift_pressed = all_mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-
-      if (record->event.pressed) {
-        /* The key is being pressed.
-         */
-        if (alt_pressed) {
-          alt_flag = true;
-          if (shift_pressed) {
-            del_key(KC_LSHIFT);
-            send_keyboard_report();
-            del_key(KC_RSHIFT);
-            send_keyboard_report();
-            SEND_STRING(SS_LALT(SS_TAP(X_GRAVE)));
-            if (shift_pressed & MOD_BIT(KC_LSHIFT))
-              add_key(KC_LSHIFT);
-            if (shift_pressed & MOD_BIT(KC_RSHIFT))
-              add_key(KC_RSHIFT);
-            send_keyboard_report();
-            add_key(KC_A);
-            send_keyboard_report();
-          } else {
-            SEND_STRING(SS_LALT(SS_TAP(X_GRAVE)));
-            add_key(KC_A);
-            send_keyboard_report();
-          }
-        } else {
-          add_key(KC_GRV);
-          send_keyboard_report();
-        }
+  if (record->event.pressed) {
+    // The key is being pressed.
+    if (alt_pressed) {
+      alt_flag = true;
+      if (shift_pressed) {
+        del_key(KC_LSHIFT);
+        send_keyboard_report();
+        del_key(KC_RSHIFT);
+        send_keyboard_report();
+        SEND_STRING(SS_LALT(SS_TAP(X_GRAVE)));
+        if (shift_pressed & MOD_BIT(KC_LSHIFT))
+          add_key(KC_LSHIFT);
+        if (shift_pressed & MOD_BIT(KC_RSHIFT))
+          add_key(KC_RSHIFT);
+        send_keyboard_report();
+        add_key(KC_A);
+        send_keyboard_report();
       } else {
-        /* The key is being released.
-         */
-        if (alt_flag) {
-          alt_flag = false;
-          del_key(KC_A);
-          send_keyboard_report();
-        } else {
-          del_key(KC_GRV);
-          send_keyboard_report();
-        }
+        SEND_STRING(SS_LALT(SS_TAP(X_GRAVE)));
+        add_key(KC_A);
+        send_keyboard_report();
       }
-      break;
+    } else {
+      add_key(KC_GRV);
+      send_keyboard_report();
+    }
+  } else {
+    // The key is being released.
+    if (alt_flag) {
+      alt_flag = false;
+      del_key(KC_A);
+      send_keyboard_report();
+    } else {
+      del_key(KC_GRV);
+      send_keyboard_report();
+    }
+  }
+}
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  switch (id) {
+  case 0:
+    function0(record);
+    break;
   }
 }
