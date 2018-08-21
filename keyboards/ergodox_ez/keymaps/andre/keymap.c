@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_LCTRL, KC_TRNS,
                                                      KC_TRNS,
-                                  KC_TRNS, KC_RALT,  KC_TRNS,
+                                  KC_TRNS, KC_TRNS,  KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -267,4 +267,41 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     function0(record);
     break;
   }
+}
+
+bool process_win_accents(uint16_t keycode, keyrecord_t *record) {
+  if (!(get_mods() & MOD_BIT(KC_LALT)))
+    return true;
+
+  switch(keycode) {
+    // D is E on Dvorak
+    case KC_D:
+    // F is U on Dvorak
+    case KC_F:
+    // G is I on Dvorak
+    case KC_G:
+    // I is C on Dvorak
+    case KC_I:
+    case KC_GRAVE:
+      if (record->event.pressed) {
+        add_key(KC_RALT);
+        send_keyboard_report();
+      } else {
+        del_key(KC_RALT);
+        send_keyboard_report();
+      }
+      break;
+  }
+  return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  uint8_t layer = biton32(layer_state);
+
+  switch(layer) {
+    case WIND:
+      return process_win_accents(keycode, record);
+      break;
+  }
+  return true;
 }
