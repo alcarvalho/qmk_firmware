@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_GRV,  KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_LCTRL, KC_TRNS,
                                                      KC_TRNS,
                                   KC_TRNS, KC_TRNS,  KC_TRNS,
@@ -269,8 +269,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   }
 }
 
+bool r_alt_added = false;
+
 bool process_win_accents(uint16_t keycode, keyrecord_t *record) {
-  if (!(get_mods() & MOD_BIT(KC_LALT)))
+  if (!(get_mods() & MOD_BIT(KC_LALT)) && record->event.pressed)
     return true;
 
   switch(keycode) {
@@ -284,9 +286,11 @@ bool process_win_accents(uint16_t keycode, keyrecord_t *record) {
     case KC_I:
     case KC_GRAVE:
       if (record->event.pressed) {
+        r_alt_added = true;
         add_key(KC_RALT);
         send_keyboard_report();
-      } else {
+      } else if (r_alt_added) {
+        r_alt_added = false;
         del_key(KC_RALT);
         send_keyboard_report();
       }
