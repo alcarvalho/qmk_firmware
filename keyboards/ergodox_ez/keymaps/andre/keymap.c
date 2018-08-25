@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,           KC_Q,     KC_W,        KC_E,    KC_R,    KC_T,   TG(SYMB),
         LT(SYMB,KC_CAPS), KC_A,     KC_S,        KC_D,    KC_F,    KC_G,
         KC_LSFT,          KC_Z,     KC_X,        KC_C,    KC_V,    KC_B,   MMEH_T(KC_NO),
-        KC_BSLS,          F(0),     LALT(KC_I),  KC_LEFT, KC_RGHT,
+        KC_BSLS,          F(0),     RALT(KC_I),  KC_LEFT, KC_RGHT,
                                                                       KC_LGUI,   KC_HOME,
                                                                                   KC_END,
                                                              KC_BSPC, KC_LALT, KC_DELETE,
@@ -284,6 +284,8 @@ bool process_win_accents(uint16_t keycode, keyrecord_t *record) {
     case KC_G:
     // I is C on Dvorak
     case KC_I:
+    // L is N on Dvorak
+    case KC_L:
     case KC_GRAVE:
       if (record->event.pressed) {
         r_alt_added = true;
